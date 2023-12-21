@@ -34,6 +34,7 @@ class _TaskpageState extends State<Taskpage> {
       body: GetX<TaskController>(
         init: TaskController(),
         builder: (_) {
+          _.taskList.sort((a, b) => b.id!.compareTo(a.id!),);
           return _.isLoaded.isTrue? CustomLoading.loadingScreen():
 
           Stack(
@@ -72,6 +73,8 @@ class _TaskpageState extends State<Taskpage> {
                             itemCount:_.taskList.length,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
+
+
                               return Container(
                                 padding: EdgeInsets.symmetric( horizontal: OtherConstant.kRegularPadding, vertical:OtherConstant.kRegularPadding),
                                 decoration: BoxDecoration(color: ColorPath.kLightPrimary, borderRadius: BorderRadius.circular(OtherConstant.kSmallIconSize)),
