@@ -21,6 +21,8 @@ class Taskpage extends StatefulWidget {
 class _TaskpageState extends State<Taskpage> {
   var selectedStatus;
 
+  final _formKey=GlobalKey<FormState>();
+
   final TaskController _controller=Get.put(TaskController());
 
   List<String> statusList = ['true', 'false'];
@@ -542,134 +544,100 @@ class _TaskpageState extends State<Taskpage> {
                                                                 color: Colors.white,
                                                                 borderRadius:
                                                                 BorderRadius.circular(OtherConstant.kMediumTextSize)),
-                                                            child: Column(
-                                                              mainAxisSize: MainAxisSize.min,
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment.start,
-                                                              children: [
-                                                                Text(
-                                                                  LocalString.kUpdate,
-                                                                  style: CustomStyle
-                                                                      .kCustomTextStyle(
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: OtherConstant
-                                                                      .kLargePadding,
-                                                                ),
-                                                                CustomWidgets.kCustomTextField(controller:_.titleController, hintText:_.taskList[index].title??'Update Title'),
-
-                                                                // Container(
-                                                                //   decoration: BoxDecoration(
-                                                                //     color: Colors.white,
-                                                                //     boxShadow:  [
-                                                                //       BoxShadow(
-                                                                //         color: Colors.grey,
-                                                                //         offset: const Offset(0.0, 0.0),
-                                                                //         blurRadius: OtherConstant.kRegularRadius,
-                                                                //         spreadRadius: 0.0,
-                                                                //       ),
-                                                                //     ],
-                                                                //     borderRadius:
-                                                                //     BorderRadius.circular(OtherConstant.kRegularRadius),
-                                                                //   ),
-                                                                //   child: TextField(
-                                                                //     controller:_.titleController,
-                                                                //     decoration: InputDecoration(
-                                                                //         contentPadding: EdgeInsets.all(
-                                                                //             OtherConstant
-                                                                //                 .kRegularPadding),
-                                                                //         hintText:_.taskList[index].title??'Update Title',
-                                                                //         border: InputBorder.none),
-                                                                //   ),
-                                                                // ),
-                                                                SizedBox(
-                                                                  height: OtherConstant.kLargePadding,
-                                                                ),
-                                                                CustomWidgets.kCustomTextField(controller:_.descriptionController, hintText:_.taskList[index].description?? 'Update description'),
-
-                                                                // Container(
-                                                                //   decoration: BoxDecoration(
-                                                                //     color: Colors.white,
-                                                                //     boxShadow:  [
-                                                                //       BoxShadow(
-                                                                //         color: Colors.grey,
-                                                                //         offset: Offset(0.0, 0.0),
-                                                                //         blurRadius:OtherConstant.kRegularRadius,
-                                                                //         spreadRadius: 0.0,
-                                                                //       ),
-                                                                //     ],
-                                                                //     borderRadius:
-                                                                //     BorderRadius.circular(10),
-                                                                //   ),
-                                                                //   child: TextField(
-                                                                //     controller: _.descriptionController,
-                                                                //     decoration: InputDecoration(
-                                                                //         contentPadding: EdgeInsets.all(
-                                                                //             OtherConstant
-                                                                //                 .kRegularPadding),
-                                                                //         hintText:_.taskList[index].description?? 'Update description',
-                                                                //         border: InputBorder.none),
-                                                                //   ),
-                                                                // ),
-                                                                SizedBox(
-                                                                  height: OtherConstant.kLargePadding,
-                                                                ),
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                    color: Colors.white,
-                                                                    boxShadow: const [
-                                                                      BoxShadow(
-                                                                        color: Colors.grey,
-                                                                        offset: Offset(0.0, 0.0),
-                                                                        blurRadius: 10.0,
-                                                                        spreadRadius: 0.0,
-                                                                      ),
-                                                                    ],
-                                                                    borderRadius:
-                                                                    BorderRadius.circular(10),
+                                                            child: Form(
+                                                              key: _formKey,
+                                                              child:Column(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                crossAxisAlignment:
+                                                                CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    LocalString.kUpdate,
+                                                                    style: CustomStyle
+                                                                        .kCustomTextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
                                                                   ),
-                                                                  child: DropdownButtonFormField(
-                                                                    value: selectedStatus,
-                                                                    decoration: InputDecoration(
-                                                                        contentPadding: EdgeInsets.all(
-                                                                            OtherConstant
-                                                                                .kRegularPadding),
-                                                                        hintText: 'select an option',
-                                                                        border: InputBorder.none),
-                                                                    onChanged: (value) {
-                                                                      setState(() {
-                                                                        selectedStatus = value;
-                                                                        _.statusController.text=selectedStatus;
-                                                                      });
-                                                                    },
-                                                                    items: statusList
-                                                                        .map((e) => DropdownMenuItem(
-                                                                        value: e,
-                                                                        child: Text(e.toString())))
-                                                                        .toList(),
+                                                                  SizedBox(
+                                                                    height: OtherConstant
+                                                                        .kLargePadding,
                                                                   ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height: OtherConstant.kLargePadding,
-                                                                ),
-                                                                CustomButton.kCustomElevatedButton(
-                                                                    padding:OtherConstant.kRegularPadding,
-                                                                    onPressed: (){
+                                                                  CustomWidgets.kCustomTextField(
+                                                                      controller:_.titleController,
+                                                                      validator: (val) =>val ==null || val==""?"Type Title":null ,
+                                                                      hintText:_.taskList[index].title??'Update Title'),
 
-                                                                      _.updateTask(taskModel:_.taskList[index]).then((value) {
+                                                                  SizedBox(
+                                                                    height: OtherConstant.kLargePadding,
+                                                                  ),
+                                                                  CustomWidgets.kCustomTextField(
+                                                                      controller:_.descriptionController,
+                                                                      validator: (val) =>val ==null || val==""?"Type Description":null ,
+                                                                      hintText:_.taskList[index].description?? 'Update description'),
 
-                                                                        Get.back();
-                                                                      });
+                                                                  SizedBox(
+                                                                    height: OtherConstant.kLargePadding,
+                                                                  ),
+                                                                  Container(
+                                                                    decoration: BoxDecoration(
+                                                                      color: Colors.white,
+                                                                      boxShadow: const [
+                                                                        BoxShadow(
+                                                                          color: Colors.grey,
+                                                                          offset: Offset(0.0, 0.0),
+                                                                          blurRadius: 10.0,
+                                                                          spreadRadius: 0.0,
+                                                                        ),
+                                                                      ],
+                                                                      borderRadius:
+                                                                      BorderRadius.circular(10),
+                                                                    ),
+                                                                    child: DropdownButtonFormField(
+                                                                      value: selectedStatus,
+                                                                      validator: (val) =>val==null?"Select an option":null,
+                                                                      decoration: InputDecoration(
+                                                                          contentPadding: EdgeInsets.all(
+                                                                              OtherConstant
+                                                                                  .kRegularPadding),
+                                                                          hintText: 'select an option',
+                                                                          border: InputBorder.none),
+                                                                      onChanged: (value) {
+                                                                        setState(() {
+                                                                          selectedStatus = value;
+                                                                          _.statusController.text=selectedStatus;
+                                                                        });
+                                                                      },
+                                                                      items: statusList
+                                                                          .map((e) => DropdownMenuItem(
+                                                                          value: e,
+                                                                          child: Text(e.toString())))
+                                                                          .toList(),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: OtherConstant.kLargePadding,
+                                                                  ),
+                                                                  CustomButton.kCustomElevatedButton(
+                                                                      padding:OtherConstant.kRegularPadding,
+                                                                      onPressed: (){
 
-                                                                    },
-                                                                    title: 'Save',
-                                                                    fontWeight: FontWeight.w600)
+                                                                        if(_formKey.currentState!.validate()){
+                                                                          _.updateTask(taskModel:_.taskList[index]).then((value) {
+                                                                            Get.back();
+                                                                          });
+
+                                                                        }
 
 
-                                                              ],
+
+                                                                      },
+                                                                      title: 'Save',
+                                                                      fontWeight: FontWeight.w600)
+
+
+                                                                ],
+                                                              )
                                                             ),
                                                           ),
                                                         );

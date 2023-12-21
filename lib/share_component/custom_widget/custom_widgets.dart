@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_managment/constant/color_path.dart';
 import 'package:task_managment/constant/other_constant.dart';
 import 'package:task_managment/share_component/custom_style.dart';
@@ -6,9 +7,11 @@ import 'package:task_managment/share_component/custom_style.dart';
 
 class CustomWidgets{
 
-  static kCustomTextField({controller,hintText}){
+  static kCustomTextField({controller,hintText,String? Function(String?)? validator}){
 
     return Container(
+      height: 50.sp,
+      padding: EdgeInsets.zero,
       decoration: BoxDecoration(
       color: Colors.white,
       boxShadow:  [
@@ -23,12 +26,19 @@ class CustomWidgets{
       BorderRadius.circular(OtherConstant.kRegularRadius),
     ),
 
-      child: TextField(
+      child: TextFormField(
+
+
         controller:controller,
+        validator:validator,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(OtherConstant.kRegularPadding),
+
+          helperText: "",
+            contentPadding: EdgeInsets.only(top: OtherConstant.kRegularRadius,left:OtherConstant.kRegularRadius),
+
             hintText:hintText,
             border: InputBorder.none),
+
       ),
     );
   }
