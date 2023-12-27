@@ -222,9 +222,6 @@ class _TaskpageState extends State<Taskpage> {
                                                   color:  Colors.green,
                                                 ),
                                                 onPressed: () {
-                                                  _.titleController.text=_.taskList[index].title??'';
-                                                  _.descriptionController.text=_.taskList[index].description??'';
-                                                  _.statusController.text=_.taskList[index].status??'';
                                                   buildShowDialog(context, _, index).then((value){
 
                                                     _.titleController.clear();
@@ -282,43 +279,42 @@ class _TaskpageState extends State<Taskpage> {
                                                         borderRadius:
                                                         BorderRadius.circular(
                                                             14.sp)),
-                                                    child: Column(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text('${_.taskList[index].title}',style: CustomStyle.kCustomTextStyle(
-                                                            fontSize:OtherConstant.kLargeTextSize,
-                                                            fontWeight: FontWeight.w500
-                                                        ),),
-                                                        SizedBox(height: OtherConstant.kLargePadding,),
-
-                                                        Text('${_.taskList[index].description}',style: CustomStyle.kCustomTextStyle(
-
-                                                        ),),
-
-                                                        SizedBox(height: OtherConstant.kLargePadding,),
-                                                        CustomButton.kCustomElevatedButton(
-                                                            padding:OtherConstant.kRegularPadding,
-                                                            title:LocalString.kUpdate,
-                                                            onPressed: (){
-                                                              _.titleController.text=_.taskList[index].title??'';
-                                                              _.descriptionController.text=_.taskList[index].description??'';
-                                                              _.statusController.text=_.taskList[index].status??'';
-                                                              Get.back();
-                                                              buildShowDialog(context, _, index).then((value){
-
-                                                                _.titleController.clear();
-                                                                _.descriptionController.clear();
-                                                                _.statusController.clear();
-                                                                selectedStatus=null;
-                                                              });
-                                                            }
-                                                        )
-
-
-
-                                                      ],
+                                                    child: SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text('${_.taskList[index].title}',style: CustomStyle.kCustomTextStyle(
+                                                              fontSize:OtherConstant.kLargeTextSize,
+                                                              fontWeight: FontWeight.w500
+                                                          ),),
+                                                          SizedBox(height: OtherConstant.kLargePadding,),
+                                                      
+                                                          Text('${_.taskList[index].description}',style: CustomStyle.kCustomTextStyle(
+                                                      
+                                                          ),),
+                                                      
+                                                          SizedBox(height: OtherConstant.kLargePadding,),
+                                                          CustomButton.kCustomElevatedButton(
+                                                              padding:OtherConstant.kRegularPadding,
+                                                              title:LocalString.kUpdate,
+                                                              onPressed: (){
+                                                                Get.back();
+                                                                buildShowDialog(context, _, index).then((value){
+                                                      
+                                                                  _.titleController.clear();
+                                                                  _.descriptionController.clear();
+                                                                  _.statusController.clear();
+                                                                  selectedStatus=null;
+                                                                });
+                                                              }
+                                                          )
+                                                      
+                                                      
+                                                      
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 );
