@@ -222,6 +222,9 @@ class _TaskpageState extends State<Taskpage> {
                                                   color:  Colors.green,
                                                 ),
                                                 onPressed: () {
+                                                  _.titleController.text=_.taskList[index].title??'';
+                                                  _.descriptionController.text=_.taskList[index].description??'';
+                                                  _.statusController.text=_.taskList[index].status??'';
                                                   buildShowDialog(context, _, index).then((value){
 
                                                     _.titleController.clear();
@@ -300,6 +303,9 @@ class _TaskpageState extends State<Taskpage> {
                                                               padding:OtherConstant.kRegularPadding,
                                                               title:LocalString.kUpdate,
                                                               onPressed: (){
+                                                                _.titleController.text=_.taskList[index].title??'';
+                                                                _.descriptionController.text=_.taskList[index].description??'';
+                                                                _.statusController.text=_.taskList[index].status??'';
                                                                 Get.back();
                                                                 buildShowDialog(context, _, index).then((value){
                                                       
